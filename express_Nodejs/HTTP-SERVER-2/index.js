@@ -18,3 +18,26 @@
 
 
 //------------------------------------
+
+
+
+const express = require('express');
+const port = 3000;
+const app = express();
+const bodyParser = require("body-parser");
+//middlewares
+app.use(bodyParser.json());
+//npm install body-parser
+
+app.post('/backend-api/conversations', function(req, res){
+    const message = req.body.message;
+    console.log(message);
+    res.send('Hello World!');
+});
+
+app.listen(port, function() {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+
+
+//npm install nodemon
