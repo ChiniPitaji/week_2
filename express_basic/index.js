@@ -169,6 +169,15 @@ app.put("/",function(req,res){
 app.delete("/",function(req,res){
     //you should return a 411
     //only if atleast one unhealthy kidney is there to do this,else return 411
+
+    // let atleastOneUnhealthyKidney=false;
+    // for(let i=0;i<users[0].kidneys.length;i++){
+    // if(!users[0].kidneys[i].healthy){
+    //     atleastOneUnhealthyKidney=true;
+    //     }
+    // }
+
+    if(isThereAtleastOneUnhealthyKidney()){
    const newKidneys=[];
    for(let i=0;i<users[0].kidneys.length;i++){
     if(users[0].kidneys[i].healthy){
@@ -181,6 +190,19 @@ app.delete("/",function(req,res){
    res.json({
     mdg:"DONE"
    })
-})
+}else{
+    res.status(411).json({
+        msg:"You have no bad kidneys"
+    });
+}
 
+function isThereAtleastOneUnhealthyKidney(){
+      let atleastOneUnhealthyKidney=false;
+    for(let i=0;i<users[0].kidneys.length;i++){
+    if(!users[0].kidneys[i].healthy){
+        atleastOneUnhealthyKidney=true;
+        }
+    }  
+    return atleastOneUnhealthyKidney;
+}
 app.listen(3000);
